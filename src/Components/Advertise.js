@@ -8,7 +8,7 @@ const Advertise = ({advertiseProducts:products}) => {
 
   return (
     <>
-      <div className="mt-10">
+      <div className="mb-28">
         <h1 className="text-center text-3xl font-bold">Hot Offers</h1>
         <p className="text-center text-orange-500 text-xl">Advertise</p>
         <div>
@@ -38,7 +38,7 @@ const Advertise = ({advertiseProducts:products}) => {
             {products.map((pro) => (
               <SwiperSlide key={pro._id}>
                 <div>
-                  <img src={pro.img} alt="" />
+                  <img src={pro.img} alt="phon" />
                 </div>
               </SwiperSlide>
             ))}
