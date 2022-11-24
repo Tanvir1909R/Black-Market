@@ -1,14 +1,27 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { authProvider } from '../contexts/UserContext';
 
 const Register = () => {
   const { register, handleSubmit } = useForm();
+  const { Register } = useContext(authProvider)
+  const [error, setError] = useState('')
+
   const handleForm = (data)=>{
-    console.log(data);
-    toast.success('register successful')
+    const name = data.name;
+    const email = data.email;
+    const password = data.password
+    Register(email, password)
+    .then(res =>{
+      console.log(res.user);
+      setError('')
+      toast.success('register successful')
+    })
+    .catch(e => setError(e.message))
   }
+  
   return (
     <div className="Container mb-72">
         <h1 className="text-4xl text-center">Please Register</h1>
@@ -52,6 +65,7 @@ const Register = () => {
             />
           </div>
           <p className="my-2">Already have an account? <Link to='/login' className="text-orange-500">Login</Link></p>
+          {error && <p className='text-rose-600 my-2'>{error}</p>}
           <button type="submit" className="btn">Register</button>
         </form>
       </div>

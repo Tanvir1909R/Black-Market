@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { authProvider } from "../contexts/UserContext";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
+  const { Login } = useContext(authProvider)
+  const [error, setError] = useState('')
+
   const handleForm = (data)=>{
-    console.log(data);
+    const email = data.email;
+    const password = data.password;
+
+    Login(email, password)
+    .then(res =>{
+      console.log(res.user);
+      setError('')
+      toast.success('login successful')
+    })
+    .catch(e => setError(e.message))
   }
   return (
     <div className="Container mb-72">
@@ -38,6 +52,7 @@ const Login = () => {
             />
           </div>
           <p className="my-2">New to black market? <Link to='/register' className="text-orange-500">Create account</Link></p>
+          {error && <p className='text-rose-600 my-2'>{error}</p>}
           <button type="submit" className="btn">Login</button>
         </form>
       </div>
