@@ -21,7 +21,6 @@ const Register = () => {
     const user = {
       name,
       email,
-      password,
       type,
     };
     Register(email, password)
