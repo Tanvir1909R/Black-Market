@@ -7,6 +7,8 @@ import Blog from './pages/Blog'
 import CategoryItems from './pages/CategoryItems'
 import Footer from './Components/Footer'
 import Login from './pages/Login'
+import Register from './pages/Register'
+import { Toaster } from 'react-hot-toast'
 
 const App = () => {
   return (
@@ -19,7 +21,9 @@ const App = () => {
         <Route path='/blog' element={ <Blog /> } />
         <Route path='/categories/:name' element={ <CategoryItems/> } />
         <Route path='/login' element={ <Login/> } />
+        <Route path='/register' element={ <Register /> } />
       </Routes>
+      <Toaster/>
     </section>
     <Footer/>
     </>
