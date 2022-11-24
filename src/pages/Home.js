@@ -14,7 +14,6 @@ const Home = () => {
   const [advertiseProducts, setAdvertiseProducts] = useState([]);
   const [advertiseLength, setAdvertiseLength] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  console.log(advertiseLength);
   useEffect(() => {
     setIsLoading(true);
     axios.get(`${baseUrl}/categories`).then((res) => setCategories(res.data));

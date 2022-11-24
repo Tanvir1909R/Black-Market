@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import { authProvider } from "../contexts/UserContext";
 
 const Navbar = () => {
-  const { user } = useContext(authProvider);
+  const { user, LogOut } = useContext(authProvider);
+  const handleLogOut = ()=>{
+    LogOut()
+    .then(()=>{})
+  }
   const menu = (
     <>
       <li>
@@ -15,10 +19,10 @@ const Navbar = () => {
       {user?.email ? (
         <>
           <li>
-            <Link>Dashboard</Link>
+            <Link to='/dashboard'>Dashboard</Link>
           </li>
           <li>
-            <Link>LogOut</Link>
+            <button className="btn text-white rounded-lg" onClick={handleLogOut}>LogOut</button>
           </li>
         </>
       ) : (
