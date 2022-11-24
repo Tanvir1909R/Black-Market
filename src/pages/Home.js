@@ -8,9 +8,23 @@ import { urlProvider } from "../contexts/UrlContext";
 const Home = () => {
   const { baseUrl } = useContext(urlProvider);
   const [categories, setCategories] = useState([]);
+  const [advertiseProducts, setAdvertiseProducts] = useState([]);
+  const [advertiseLength, setAdvertiseLength] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  console.log(advertiseLength);
   useEffect(() => {
     axios.get(`${baseUrl}/categories`).then((res) => setCategories(res.data));
+    axios.get(`${baseUrl}/advertiseProducts`).then((res) => {
+      setIsLoading(true);
+      setAdvertiseProducts(res.data);
+      setAdvertiseLength(res.data.length);
+      setIsLoading(false);
+    });
   }, [baseUrl]);
+
+  if (isLoading) {
+    return <p>loading ..</p>;
+  }
 
   return (
     <div className="Container">
@@ -54,13 +68,7 @@ const Home = () => {
         </div>
       </div>
       {/* //advertise */}
-      <div className="mt-10">
-        <h1 className="text-center text-3xl font-bold">Hot Offers</h1>
-        <p className="text-center text-orange-500 text-xl">Advertise</p>
-        <div>
-          <Advertise/>
-        </div>
-      </div>
+      {advertiseLength && <Advertise advertiseProducts={advertiseProducts} />}
     </div>
   );
 };
