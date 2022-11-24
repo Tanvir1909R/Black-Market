@@ -6,6 +6,7 @@ import Categories from './pages/Categories'
 import Blog from './pages/Blog'
 import CategoryItems from './pages/CategoryItems'
 import Footer from './Components/Footer'
+import Login from './pages/Login'
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path='/categories' element={ <Categories/> } />
         <Route path='/blog' element={ <Blog /> } />
         <Route path='/categories/:name' element={ <CategoryItems/> } />
+        <Route path='/login' element={ <Login/> } />
       </Routes>
     </section>
     <Footer/>

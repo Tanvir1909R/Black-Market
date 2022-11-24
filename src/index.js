@@ -8,17 +8,20 @@ import UrlContext from "./contexts/UrlContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "swiper/css/bundle";
 import "./styles.css";
+import UserContext from "./contexts/UserContext";
 
 const queryClint = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <UrlContext>
-      <QueryClientProvider client={queryClint}>
-        <App />
-      </QueryClientProvider>
-    </UrlContext>
+    <UserContext>
+      <UrlContext>
+        <QueryClientProvider client={queryClint}>
+          <App />
+        </QueryClientProvider>
+      </UrlContext>
+    </UserContext>
   </BrowserRouter>
 );
 
