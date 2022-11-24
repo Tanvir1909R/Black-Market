@@ -1,0 +1,30 @@
+[
+    {
+        "name":"iPhon",
+        "logo":"https://i.ibb.co/xzXnnfv/apple.png"
+    },
+    {
+        "name":"samsung",
+        "logo":"https://i.ibb.co/nRjpT8H/samsung.png"
+    },
+    {
+        "name":"oppo",
+        "logo":"https://i.ibb.co/R65VkRC/oppo.png"
+    },
+    {
+        "name":"one plus",
+        "logo":"https://i.ibb.co/Dthb3W4/oneplus.png"
+    },
+    {
+        "name":"vivo",
+        "logo":"https://i.ibb.co/4g403Kn/vivo.png"
+    },
+    {
+        "name":"xiaomi",
+        "logo":"https://i.ibb.co/0VTf81Y/xiaomi.png"
+    },
+    {
+        "name":"huawei",
+        "logo":"https://i.ibb.co/GJxVj4x/huawei.png"
+    }
+]
