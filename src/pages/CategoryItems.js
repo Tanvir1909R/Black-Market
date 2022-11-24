@@ -19,7 +19,7 @@ const CategoryItems = () => {
   }
   return (
     <div className='Container'>
-      <h1 className='text-3xl font-bold'>Find your phon: {name}</h1>
+      <h1 className='text-3xl text-center'>Find your phon: {name}</h1>
       <div className='p-5'>
         {
           categoryItems.map((item)=> <div>

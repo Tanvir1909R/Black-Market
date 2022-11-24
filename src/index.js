@@ -6,6 +6,8 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import UrlContext from "./contexts/UrlContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "swiper/css/bundle";
+import "./styles.css";
 
 const queryClint = new QueryClient();
 
