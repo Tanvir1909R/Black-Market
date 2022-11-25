@@ -39,9 +39,7 @@ const Login = () => {
         email:res.user.email,
         type:"Buyer"
       })
-      .then(res =>{
-        console.log(res.data);
-      })
+      .then(res =>{})
     })
   }
 

@@ -9,7 +9,7 @@ import Footer from "./Components/Footer";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { Toaster } from "react-hot-toast";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/dashboard/Dashboard";
 import PrivateRoute from "./routes/PrivateRoute";
 
 const App = () => {
@@ -31,14 +31,14 @@ const App = () => {
               </PrivateRoute>
             }
           />
-          <Route
-            path="/dashboard"
-            element={
+          <Route path="/dashboard" element={
               <PrivateRoute>
                 <Dashboard />
               </PrivateRoute>
             }
-          />
+          >
+            
+          </Route>
         </Routes>
         <Toaster />
       </section>
