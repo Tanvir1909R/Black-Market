@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
+import toast from 'react-hot-toast';
 import { urlProvider } from '../../contexts/UrlContext';
 import { authProvider } from '../../contexts/UserContext';
 
@@ -22,6 +23,20 @@ const SellerMyProduct = () => {
             refetch()
         })
     }
+    const handleAdvertise = (product)=>{
+      const advertiseProduct = product;
+      advertiseProduct.productID = product._id
+      delete advertiseProduct['_id'];
+
+      axios.post(`${baseUrl}/advertiseProducts`,advertiseProduct)
+      .then(res =>{
+        if(res.data.acknowledged){
+          toast.success('successfully added')
+        }else{
+          toast.error(res.data.message)
+        }
+      })
+    }
 
     return (
       <div className="overflow-x-auto w-full mb-32">
@@ -32,6 +47,7 @@ const SellerMyProduct = () => {
               <th>Name</th>
               <th>Price</th>
               <th>Payment</th>
+              <th>#</th>
               <th>#</th>
             </tr>
           </thead>
@@ -56,6 +72,9 @@ const SellerMyProduct = () => {
                   </td>
                   <td>{product.resalePrice}</td>
                   <td>not sold</td>
+                  <td>
+                    <button className="btn btn-sm" onClick={()=>handleAdvertise(product)}>Advertise</button>
+                  </td>
                   <td>
                     <button className="btn btn-sm" onClick={()=>handleDelete(product._id)}>Delete</button>
                   </td>
