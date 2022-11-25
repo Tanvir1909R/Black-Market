@@ -1,8 +1,9 @@
+import axios from "axios";
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
 import { authProvider } from "../contexts/UserContext";
-
-const BookingModal = ({itemBook, setItemBook}) => {
+ 
+const BookingModal = ({itemBook, setItemBook, baseUrl}) => {
     const {user} = useContext(authProvider)
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -14,10 +15,13 @@ const BookingModal = ({itemBook, setItemBook}) => {
         const price = form.price.value;
         const number = form.number.value;
         const location = form.location.value;
-        const bookInfo = {itemName, name, email, price, number, location}
-        console.log(bookInfo);
-        setItemBook(null)
-        toast.success('Booked successful')
+        const bookInfo = {itemName, name, email, price, number, location,img:itemBook.img}
+
+          axios.post(`${baseUrl}/bookingProducts`,bookInfo)
+          .then(res =>{
+            setItemBook(null)
+            toast.success('Booked successful')
+          })
     };
   return (
     <>

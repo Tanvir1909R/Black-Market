@@ -1,45 +1,66 @@
-import React from 'react'
+import { useQuery } from "@tanstack/react-query";
+import React, { useContext } from "react";
+import { urlProvider } from "../../contexts/UrlContext";
+import { authProvider } from "../../contexts/UserContext";
+import useUserState from "../../hooks/useUserState";
 
 const BuyerDashboard = () => {
+  const {user} = useContext(authProvider)
+  const { baseUrl } = useContext(urlProvider);
+  const { data: products=[], refetch } = useQuery({
+    queryKey: ["bookingProducts"],
+    queryFn: async () => {
+      const res = await fetch(`${baseUrl}/bookingProducts/${user.email}`);
+      const data = res.json();
+      return data;
+    },
+  });
+
   return (
     <div className="overflow-x-auto w-full">
-  <table className="table w-full">
-    <thead>
-      <tr>
-        <th>Image</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Payment</th>
-      </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>
-          <div className="flex items-center space-x-3">
-            <div className="avatar">
-              <div className="mask mask-squircle w-12 h-12">
-                <img src="/tailwind-css-component-profile-2@56w.png" alt="Avatar Tailwind CSS Component" />
-              </div>
-            </div>
-            <div>
-              <div className="font-bold">Hart Hagerty</div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <p>iphone</p>
-        </td>
-        <td>
-            70000
-        </td>
-        <td>
-            <button className='btn btn-sm'>pay</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-  )
-}
+      <table className="table w-full">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Payment</th>
+            <th>#</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((product) => {
+            return (
+              <tr key={product._id}>
+                <td>
+                  <div className="flex items-center">
+                    <div className="avatar">
+                      <div className="mask mask-squircle w-12 h-12">
+                        <img
+                          src={product.img}
+                          alt="phon"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p>{product.itemName}</p>
+                </td>
+                <td>{product.price}</td>
+                <td>
+                  <button className="btn btn-sm">pay</button>
+                </td>
+                <td>
+                  <button className="btn btn-sm">cancel</button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
-export default BuyerDashboard
+export default BuyerDashboard;

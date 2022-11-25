@@ -5,7 +5,7 @@ import useUserState from "../../hooks/useUserState";
 
 const Dashboard = () => {
   const { user } = useContext(authProvider);
-  const [userState] = useUserState(user.email);
+  const [userState] = useUserState(user?.email);
 
   return (
     <div className="Container">
@@ -27,10 +27,10 @@ const Dashboard = () => {
             {userState.isSeller && (
               <>
                 <li>
-                  <Link to="dashboard/addProduct">Add Product</Link>
+                  <Link to="/dashboard/addProduct">Add Product</Link>
                 </li>
                 <li>
-                  <Link to="/dashboard">My Products</Link>
+                  <Link to="/dashboard/myProducts">My Products</Link>
                 </li>
               </>
             )}

@@ -12,6 +12,7 @@ import { Toaster } from "react-hot-toast";
 import Dashboard from "./pages/dashboard/Dashboard";
 import PrivateRoute from "./routes/PrivateRoute";
 import BuyerDashboard from "./pages/dashboard/BuyerDashboard";
+import SellerAddProduct from './pages/dashboard/SellerAddProduct'
 
 const App = () => {
   return (
@@ -42,7 +43,8 @@ const App = () => {
             //---------------dashboard child
             //BuyerDashboard
               <Route path="/dashboard/myOrder" element={ <BuyerDashboard/> }/>
-            
+              //SellerDashboard
+              <Route path="/dashboard/addProduct" element={ <SellerAddProduct/> }/>
           </Route>
         </Routes>
         <Toaster />

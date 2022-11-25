@@ -10,7 +10,7 @@ import BookingModal from "../Components/BookingModal";
 const CategoryItems = () => {
   const { baseUrl } = useContext(urlProvider);
   const { name } = useParams();
-  const [itemBook, setItemBook] = useState(null)
+  const [itemBook, setItemBook] = useState(null);
   const { data: categoryItems, isLoading } = useQuery({
     queryKey: ["categoryItems"],
     queryFn: async () => {
@@ -22,9 +22,9 @@ const CategoryItems = () => {
   if (isLoading) {
     return <Loader />;
   }
-  const handleBooking = (item)=>{
-    setItemBook(item)
-  }
+  const handleBooking = (item) => {
+    setItemBook(item);
+  };
   return (
     <div className="Container">
       <h1 className="text-3xl text-center mb-20">Find your phon: {name}</h1>
@@ -40,9 +40,10 @@ const CategoryItems = () => {
           </div>
         </div>
         <div className="p-5 mb-20">
-          {categoryItems.map((item) => (
-            <div key={item._id} className="flex items-center p-5 mb-10">
-              <div className="w-[200px] h-full">
+          {categoryItems.map((item) => {
+            return(
+              <div key={item._id} className="flex items-center p-5 mb-10">
+              <div className="w-[200px] h-full mr-5">
                 <img src={item.img} alt="phon" className="w-full" />
               </div>
               <div>
@@ -58,14 +59,25 @@ const CategoryItems = () => {
                 </p>
                 <p>Original Price: {item.originalPrice}</p>
                 <p>Years of use: {item.used}</p>
-                <p>Post date: {item.date || 20}</p>
-                <label htmlFor="Booking-modal" className="btn mt-5" onClick={()=>handleBooking(item)}>
+                <p>Post date: {item.date}</p>
+                <label
+                  htmlFor="Booking-modal"
+                  className="btn mt-5"
+                  onClick={() => handleBooking(item)}
+                >
                   Booking Now
                 </label>
               </div>
             </div>
-          ))}
-          {itemBook && <BookingModal itemBook={itemBook} setItemBook={setItemBook} />}
+            )
+          })}
+          {itemBook && (
+            <BookingModal
+              itemBook={itemBook}
+              setItemBook={setItemBook}
+              baseUrl={baseUrl}
+            />
+          )}
         </div>
       </div>
     </div>
