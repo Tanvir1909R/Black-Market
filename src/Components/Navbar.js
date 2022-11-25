@@ -4,10 +4,9 @@ import { authProvider } from "../contexts/UserContext";
 
 const Navbar = () => {
   const { user, LogOut } = useContext(authProvider);
-  const handleLogOut = ()=>{
-    LogOut()
-    .then(()=>{})
-  }
+  const handleLogOut = () => {
+    LogOut().then(() => {});
+  };
   const menu = (
     <>
       <li>
@@ -19,10 +18,15 @@ const Navbar = () => {
       {user?.email ? (
         <>
           <li>
-            <Link to='/dashboard'>Dashboard</Link>
+            <Link to="/dashboard">Dashboard</Link>
           </li>
           <li>
-            <button className="btn text-white rounded-lg" onClick={handleLogOut}>LogOut</button>
+            <button
+              className="btn text-white rounded-lg"
+              onClick={handleLogOut}
+            >
+              LogOut
+            </button>
           </li>
         </>
       ) : (
@@ -30,6 +34,14 @@ const Navbar = () => {
           <Link to="/login">Login</Link>
         </li>
       )}
+      <li>
+        <label
+          htmlFor="my-drawer-2"
+          className="btn btn-primary drawer-button lg:hidden"
+        >
+          D
+        </label>
+      </li>
     </>
   );
   return (

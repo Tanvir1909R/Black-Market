@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Home from "./pages/Home";
@@ -11,6 +11,7 @@ import Register from "./pages/Register";
 import { Toaster } from "react-hot-toast";
 import Dashboard from "./pages/dashboard/Dashboard";
 import PrivateRoute from "./routes/PrivateRoute";
+import BuyerDashboard from "./pages/dashboard/BuyerDashboard";
 
 const App = () => {
   return (
@@ -31,12 +32,16 @@ const App = () => {
               </PrivateRoute>
             }
           />
+          //dashboard parent
           <Route path="/dashboard" element={
               <PrivateRoute>
                 <Dashboard />
               </PrivateRoute>
             }
           >
+            //---------------dashboard child
+            //BuyerDashboard
+              <Route path="/dashboard/myOrder" element={ <BuyerDashboard/> }/>
             
           </Route>
         </Routes>
