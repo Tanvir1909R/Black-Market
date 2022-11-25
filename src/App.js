@@ -13,6 +13,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import PrivateRoute from "./routes/PrivateRoute";
 import BuyerDashboard from "./pages/dashboard/BuyerDashboard";
 import SellerAddProduct from './pages/dashboard/SellerAddProduct'
+import SellerMyProduct from "./pages/dashboard/SellerMyProduct";
 
 const App = () => {
   return (
@@ -45,6 +46,7 @@ const App = () => {
               <Route path="/dashboard/myOrder" element={ <BuyerDashboard/> }/>
               //SellerDashboard
               <Route path="/dashboard/addProduct" element={ <SellerAddProduct/> }/>
+              <Route path="/dashboard/myProducts" element={ <SellerMyProduct/> }/>
           </Route>
         </Routes>
         <Toaster />

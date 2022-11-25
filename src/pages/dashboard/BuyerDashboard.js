@@ -7,7 +7,7 @@ import useUserState from "../../hooks/useUserState";
 const BuyerDashboard = () => {
   const {user} = useContext(authProvider)
   const { baseUrl } = useContext(urlProvider);
-  const { data: products=[], refetch } = useQuery({
+  const { data: products=[] } = useQuery({
     queryKey: ["bookingProducts"],
     queryFn: async () => {
       const res = await fetch(`${baseUrl}/bookingProducts/${user.email}`);

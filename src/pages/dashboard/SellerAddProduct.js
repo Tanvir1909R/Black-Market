@@ -6,10 +6,12 @@ import { urlProvider } from "../../contexts/UrlContext";
 import { authProvider } from "../../contexts/UserContext";
 import useUserState from "../../hooks/useUserState";
 import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 const SellerDashboard = () => {
   const { user } = useContext(authProvider);
   const [categories, setCategories] = useState([]);
+  const navigate = useNavigate()
   const [userState] = useUserState(user?.email);
   const { register, handleSubmit, reset } = useForm();
   const { baseUrl } = useContext(urlProvider);
@@ -55,6 +57,7 @@ const SellerDashboard = () => {
           .then(res =>{
             toast.success('product add successfully')
             reset()
+            navigate('/dashboard/myProducts')
           })
         }
       });
@@ -196,7 +199,7 @@ const SellerDashboard = () => {
               className="select w-full select-bordered"
               {...register("category")}
             >
-              <option selected>iPhon</option>
+              <option defaultValue='iPhon'>iPhon</option>
               {categories.map((category) => (
                 <option value={category.name} key={category._id}>{category.name}</option>
               ))}

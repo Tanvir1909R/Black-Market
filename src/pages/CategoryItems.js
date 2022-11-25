@@ -6,10 +6,14 @@ import { urlProvider } from "../contexts/UrlContext";
 import "./page.css";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import BookingModal from "../Components/BookingModal";
+import useUserState from "../hooks/useUserState";
+import { authProvider } from "../contexts/UserContext";
 
 const CategoryItems = () => {
+  const { user } = useContext(authProvider);
   const { baseUrl } = useContext(urlProvider);
   const { name } = useParams();
+  const [userState] = useUserState(user?.email);
   const [itemBook, setItemBook] = useState(null);
   const { data: categoryItems, isLoading } = useQuery({
     queryKey: ["categoryItems"],
@@ -41,35 +45,37 @@ const CategoryItems = () => {
         </div>
         <div className="p-5 mb-20">
           {categoryItems.map((item) => {
-            return(
+            return (
               <div key={item._id} className="flex items-center p-5 mb-10">
-              <div className="w-[200px] h-full mr-5">
-                <img src={item.img} alt="phon" className="w-full" />
+                <div className="w-[200px] h-full mr-5">
+                  <img src={item.img} alt="phon" className="w-full" />
+                </div>
+                <div>
+                  <p className="text-3xl">Name: {item.name}</p>
+                  <p className="text-xl">
+                    Seller Name: {item.sellerName}{" "}
+                    <BsFillCheckCircleFill className="text-blue-700 w-[15px] h-[15px] m-0 inline" />
+                  </p>
+                  <p>Location: {item.location}</p>
+                  <p>
+                    Resale Price:{" "}
+                    <span className="font-bold">{item.resalePrice}</span>
+                  </p>
+                  <p>Original Price: {item.originalPrice}</p>
+                  <p>Years of use: {item.used}</p>
+                  <p>Post date: {item.date}</p>
+                  {userState.isBuyer && (
+                    <label
+                      htmlFor="Booking-modal"
+                      className="btn mt-5"
+                      onClick={() => handleBooking(item)}
+                    >
+                      Booking Now
+                    </label>
+                  )}
+                </div>
               </div>
-              <div>
-                <p className="text-3xl">Name: {item.name}</p>
-                <p className="text-xl">
-                  Seller Name: {item.sellerName}{" "}
-                  <BsFillCheckCircleFill className="text-blue-700 w-[15px] h-[15px] m-0 inline" />
-                </p>
-                <p>Location: {item.location}</p>
-                <p>
-                  Resale Price:{" "}
-                  <span className="font-bold">{item.resalePrice}</span>
-                </p>
-                <p>Original Price: {item.originalPrice}</p>
-                <p>Years of use: {item.used}</p>
-                <p>Post date: {item.date}</p>
-                <label
-                  htmlFor="Booking-modal"
-                  className="btn mt-5"
-                  onClick={() => handleBooking(item)}
-                >
-                  Booking Now
-                </label>
-              </div>
-            </div>
-            )
+            );
           })}
           {itemBook && (
             <BookingModal
