@@ -26,6 +26,7 @@ const AllBuyer = () => {
             <tr>
               <th>No</th>
               <th>Name</th>
+              <th>Email</th>
               <th>Role</th>
               <th>#</th>
             </tr>
@@ -39,6 +40,9 @@ const AllBuyer = () => {
                   </td>
                   <td>
                     <p>{user.name}</p>
+                  </td>
+                  <td>
+                    <p>{user.email}</p>
                   </td>
                   <td>{user.type}</td>
                   <td>

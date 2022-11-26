@@ -15,12 +15,17 @@ const BookingModal = ({itemBook, setItemBook, baseUrl}) => {
         const price = form.price.value;
         const number = form.number.value;
         const location = form.location.value;
-        const bookInfo = {itemName, name, email, price, number, location,img:itemBook.img}
+        const bookInfo = {itemName, name, email, price, number, location,img:itemBook.img, productID:itemBook._id}
 
           axios.post(`${baseUrl}/bookingProducts`,bookInfo)
           .then(res =>{
-            setItemBook(null)
-            toast.success('Booked successful')
+            if(res.data.acknowledged){
+              setItemBook(null)
+              toast.success('Booked successful')
+            }else{
+              toast.error(res.data.message)
+              setItemBook(null)
+            }
           })
     };
   return (

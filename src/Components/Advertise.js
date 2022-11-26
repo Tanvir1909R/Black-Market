@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
+import { Link } from "react-router-dom";
 
 const Advertise = ({advertiseProducts:products}) => {
 
@@ -39,11 +40,12 @@ const Advertise = ({advertiseProducts:products}) => {
               <SwiperSlide key={pro._id}>
                 <div className="border rounded-lg p-4">
                 <div className="w-[280px] h-[283px]">
-                  <img src={pro.img} alt="phon" className="w-full" />
+                  <img src={pro.img} alt="phon" className="w-full rounded-md" />
                 </div>
                 <div>
                   <p>Name: {pro.name}</p>
                   <p>Price: {pro.resalePrice}</p>
+                  <Link to={`/categories/${pro.category}`} className="btn btn-sm my-2">Get</Link>
                 </div>
                 </div>
               </SwiperSlide>

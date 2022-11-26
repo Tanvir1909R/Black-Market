@@ -20,7 +20,9 @@ const SellerMyProduct = () => {
     const handleDelete = (id)=>{
         axios.delete(`${baseUrl}/products/${id}`)
         .then(res =>{
+          if(res.data.acknowledged){
             refetch()
+          }
         })
     }
     const handleAdvertise = (product)=>{

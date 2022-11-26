@@ -17,6 +17,7 @@ import SellerMyProduct from "./pages/dashboard/SellerMyProduct";
 import Error404 from "./pages/Error404";
 import AllBuyer from './pages/dashboard/AllBuyer'
 import AllSeller from "./pages/dashboard/AllSeller";
+import ReportedItem from "./pages/dashboard/ReportedItem";
 
 const App = () => {
   return (
@@ -52,6 +53,7 @@ const App = () => {
               <Route path="/dashboard/myProducts" element={ <SellerMyProduct/> }/>
               <Route path="/dashboard/allBuyer" element={<AllBuyer />}/>
               <Route path="/dashboard/allSeller" element={ <AllSeller /> }/>
+              <Route path="/dashboard/reportedItem" element={ <ReportedItem /> }/>
           </Route>
           <Route path="/*" element={ <Error404/> }/>
         </Routes>

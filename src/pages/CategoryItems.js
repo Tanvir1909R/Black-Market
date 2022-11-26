@@ -47,8 +47,8 @@ const CategoryItems = () => {
           {categoryItems.map((item) => {
             return (
               <div key={item._id} className="flex items-center p-5 mb-10">
-                <div className="w-[200px] h-full mr-5">
-                  <img src={item.img} alt="phon" className="w-full" />
+                <div className="w-[200px] h-[210px] mr-5">
+                  <img src={item.img} alt="phon" className="w-full h-full rounded-md" />
                 </div>
                 <div>
                   <p className="text-3xl">Name: {item.name}</p>
