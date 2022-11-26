@@ -38,13 +38,13 @@ const Dashboard = () => {
               userState.isAdmin &&
               <>
                 <li>
-                  <Link to="/dashboard">All Buyer</Link>
+                  <Link to="/dashboard/allBuyer">All Buyer</Link>
                 </li>
                 <li>
-                  <Link to="dashboard/myProduct">All Seller</Link>
+                  <Link to="/dashboard/allSeller">All Seller</Link>
                 </li>
                 <li>
-                  <Link to="dashboard/myProduct">Reported Items</Link>
+                  <Link to="/dashboard/reportedItem">Reported Items</Link>
                 </li>
               </>
             }

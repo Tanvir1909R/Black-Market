@@ -34,14 +34,6 @@ const Navbar = () => {
           <Link to="/login">Login</Link>
         </li>
       )}
-      <li>
-        <label
-          htmlFor="my-drawer-2"
-          className="btn btn-primary drawer-button lg:hidden"
-        >
-          D
-        </label>
-      </li>
     </>
   );
   return (
@@ -78,6 +70,14 @@ const Navbar = () => {
         </div>
         <div className="navbar-end hidden lg:flex">
           <ul className="menu menu-horizontal p-0">{menu}</ul>
+        </div>
+        <div className="navbar-end lg:hidden">
+        <label
+          htmlFor="my-drawer-2"
+          className="btn drawer-button lg:hidden"
+        >
+          D
+        </label>
         </div>
       </div>
     </div>

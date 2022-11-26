@@ -11,7 +11,7 @@ const Advertise = ({advertiseProducts:products}) => {
       <div className="mb-28">
         <h1 className="text-center text-3xl font-bold">Hot Offers</h1>
         <p className="text-center text-orange-500 text-xl">Advertise</p>
-        <div>
+        <div className="my-10">
           <Swiper
             slidesPerView={1}
             spaceBetween={10}
@@ -37,8 +37,14 @@ const Advertise = ({advertiseProducts:products}) => {
           >
             {products.map((pro) => (
               <SwiperSlide key={pro._id}>
+                <div className="border rounded-lg p-4">
+                <div className="w-[280px] h-[283px]">
+                  <img src={pro.img} alt="phon" className="w-full" />
+                </div>
                 <div>
-                  <img src={pro.img} alt="phon" />
+                  <p>Name: {pro.name}</p>
+                  <p>Price: {pro.resalePrice}</p>
+                </div>
                 </div>
               </SwiperSlide>
             ))}

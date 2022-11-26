@@ -14,6 +14,9 @@ import PrivateRoute from "./routes/PrivateRoute";
 import BuyerDashboard from "./pages/dashboard/BuyerDashboard";
 import SellerAddProduct from './pages/dashboard/SellerAddProduct'
 import SellerMyProduct from "./pages/dashboard/SellerMyProduct";
+import Error404 from "./pages/Error404";
+import AllBuyer from './pages/dashboard/AllBuyer'
+import AllSeller from "./pages/dashboard/AllSeller";
 
 const App = () => {
   return (
@@ -47,7 +50,10 @@ const App = () => {
               //SellerDashboard
               <Route path="/dashboard/addProduct" element={ <SellerAddProduct/> }/>
               <Route path="/dashboard/myProducts" element={ <SellerMyProduct/> }/>
+              <Route path="/dashboard/allBuyer" element={<AllBuyer />}/>
+              <Route path="/dashboard/allSeller" element={ <AllSeller /> }/>
           </Route>
+          <Route path="/*" element={ <Error404/> }/>
         </Routes>
         <Toaster />
       </section>
