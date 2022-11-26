@@ -15,6 +15,7 @@ const BuyerDashboard = () => {
       return data;
     },
   });
+  console.log(products);
 
   return (
     <div className="overflow-x-auto w-full">
