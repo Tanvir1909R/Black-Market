@@ -2,12 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { urlProvider } from "../../contexts/UrlContext";
 import { authProvider } from "../../contexts/UserContext";
-import useUserState from "../../hooks/useUserState";
 
 const BuyerDashboard = () => {
-  const {user} = useContext(authProvider)
+  const { user } = useContext(authProvider);
   const { baseUrl } = useContext(urlProvider);
-  const { data: products=[] } = useQuery({
+  const { data: products = [] } = useQuery({
     queryKey: ["bookingProducts"],
     queryFn: async () => {
       const res = await fetch(`${baseUrl}/bookingProducts/${user.email}`);
@@ -37,10 +36,7 @@ const BuyerDashboard = () => {
                   <div className="flex items-center">
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
-                        <img
-                          src={product.img}
-                          alt="phon"
-                        />
+                        <img src={product.img} alt="phon" />
                       </div>
                     </div>
                   </div>

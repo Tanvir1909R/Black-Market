@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import React, { useContext } from 'react'
 import { urlProvider } from '../../contexts/UrlContext';
 
@@ -15,11 +16,15 @@ const AllSeller = () => {
     });
   
     const handleDelete = (id)=>{
-        
+      axios.delete(`${baseUrl}/buyers/${id}`)
+      .then(res=>{
+        console.log(res.data);
+        refetch()
+      })
     }
 
     return (
-      <div className="overflow-x-auto w-full mb-32">
+      <div className="overflow-x-auto w-full">
         <table className="table w-full">
           <thead>
             <tr>
@@ -45,7 +50,7 @@ const AllSeller = () => {
                   </td>
                   <td>{user.type}</td>
                   <td>
-                    <button className="btn btn-sm" onClick={()=>handleDelete(user)}>Delete</button>
+                    <button className="btn btn-sm" onClick={()=>handleDelete(user._id)}>Delete</button>
                   </td>
                 </tr>
               );

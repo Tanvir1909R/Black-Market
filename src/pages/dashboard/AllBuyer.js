@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext } from 'react'
 import { urlProvider } from '../../contexts/UrlContext';
-import { authProvider } from '../../contexts/UserContext';
 
 const AllBuyer = () => {
     const { baseUrl } = useContext(urlProvider);

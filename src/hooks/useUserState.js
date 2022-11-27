@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { urlProvider } from '../contexts/UrlContext'
@@ -20,7 +20,7 @@ const useUserState = (email) => {
                 setStateLoading(false)
             }else{
                 toast.error(res.data.message,{
-                    duration:3000,
+                    duration:5000,
                 })
                 deleteAccount()
                 .then(()=>{

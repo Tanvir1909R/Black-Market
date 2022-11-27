@@ -11,7 +11,7 @@ const SellerMyProduct = () => {
     const { data: products=[], refetch } = useQuery({
       queryKey: ["productsDelete"],
       queryFn: async () => {
-        const res = await fetch(`${baseUrl}/products?email=${user.email}`);
+        const res = await fetch(`${baseUrl}/sellerProducts?email=${user.email}`);
         const data = res.json();
         return data;
       },

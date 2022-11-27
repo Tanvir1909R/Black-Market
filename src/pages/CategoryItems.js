@@ -8,12 +8,15 @@ import { BsFillCheckCircleFill } from "react-icons/bs";
 import BookingModal from "../Components/BookingModal";
 import useUserState from "../hooks/useUserState";
 import { authProvider } from "../contexts/UserContext";
+import { MdReport } from "react-icons/md";
+import ReportModal from "../Components/ReportModal";
 
 const CategoryItems = () => {
   const { user } = useContext(authProvider);
   const { baseUrl } = useContext(urlProvider);
   const { name } = useParams();
   const [userState] = useUserState(user?.email);
+  const [reportedProduct, setReportedProduct] = useState(null);
   const [itemBook, setItemBook] = useState(null);
   const { data: categoryItems, isLoading } = useQuery({
     queryKey: ["categoryItems"],
@@ -23,12 +26,17 @@ const CategoryItems = () => {
       return data;
     },
   });
-  if (isLoading) {
-    return <Loader />;
-  }
   const handleBooking = (item) => {
     setItemBook(item);
   };
+
+  const handleReport = (item) => {
+    setReportedProduct(item);
+  };
+
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <div className="Container">
       <h1 className="text-3xl text-center mb-20">Find your phon: {name}</h1>
@@ -48,10 +56,28 @@ const CategoryItems = () => {
             return (
               <div key={item._id} className="flex items-center p-5 mb-10">
                 <div className="w-[200px] h-[210px] mr-5">
-                  <img src={item.img} alt="phon" className="w-full h-full rounded-md" />
+                  <img
+                    src={item.img}
+                    alt="phon"
+                    className="w-full h-full rounded-md"
+                  />
                 </div>
                 <div>
-                  <p className="text-3xl">Name: {item.name}</p>
+                  <p className="text-3xl">
+                    Name: {item.name}
+                    {userState.isBuyer && (
+                    <label
+                      htmlFor="report-modal"
+                      onClick={() => handleReport(item)}
+                    >
+                      <MdReport
+                        className="inline-block ml-2 text-red-600 text-xl cursor-pointer"
+                        title="Report to admin"
+                      />
+                    </label>
+                  )}
+                  </p>
+
                   <p className="text-xl">
                     Seller Name: {item.sellerName}{" "}
                     <BsFillCheckCircleFill className="text-blue-700 w-[15px] h-[15px] m-0 inline" />
@@ -82,6 +108,12 @@ const CategoryItems = () => {
               itemBook={itemBook}
               setItemBook={setItemBook}
               baseUrl={baseUrl}
+            />
+          )}
+          {reportedProduct && (
+            <ReportModal
+              reportedProduct={reportedProduct}
+              setReportedProduct={setReportedProduct}
             />
           )}
         </div>
