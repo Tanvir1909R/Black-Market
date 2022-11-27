@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import React, { useContext } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { urlProvider } from "../../contexts/UrlContext";
 import { authProvider } from "../../contexts/UserContext";
@@ -7,7 +9,7 @@ import { authProvider } from "../../contexts/UserContext";
 const BuyerDashboard = () => {
   const { user } = useContext(authProvider);
   const { baseUrl } = useContext(urlProvider);
-  const { data: products = [] } = useQuery({
+  const { data: products = [], refetch } = useQuery({
     queryKey: ["bookingProducts"],
     queryFn: async () => {
       const res = await fetch(`${baseUrl}/bookingProducts/${user.email}`,{
@@ -19,6 +21,14 @@ const BuyerDashboard = () => {
       return data;
     },
   });
+
+  const handleCancel = (product)=>{
+    axios.delete(`${baseUrl}/deleteBookingProduct/${product._id}`)
+    .then(res=>{
+      toast.success('canceled')
+      refetch()
+    })
+  }
 
   return (
     <div className="overflow-x-auto w-full">
@@ -53,7 +63,7 @@ const BuyerDashboard = () => {
                   <Link to={`/payment/${product.productID}`} className="btn btn-sm">pay</Link>
                 </td>
                 <td>
-                  <button className="btn btn-sm">cancel</button>
+                  <button className="btn btn-sm" onClick={()=>handleCancel(product)}>cancel</button>
                 </td>
               </tr>
             );
