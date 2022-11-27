@@ -72,7 +72,7 @@ const Home = () => {
                 className="w-[100px]  flex items-center mr-10 justify-start"
               >
                 <Link to={`/categories/${category.name}`} className="w-full">
-                  <img src={category.logo} alt="logo" className="w-full" />
+                  <img src={category.logo} alt="logo" className="w-full object-cover" />
                 </Link>
               </div>
             ))}

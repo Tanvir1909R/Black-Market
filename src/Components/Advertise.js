@@ -40,7 +40,7 @@ const Advertise = ({advertiseProducts:products}) => {
               <SwiperSlide key={pro._id}>
                 <div className="border rounded-lg p-4">
                 <div className="w-[280px] h-[283px]">
-                  <img src={pro.img} alt="phon" className="w-full rounded-md" />
+                  <img src={pro.img} alt="phon" className="w-full rounded-md object-cover" />
                 </div>
                 <div>
                   <p>Name: {pro.name}</p>

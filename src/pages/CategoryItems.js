@@ -59,28 +59,30 @@ const CategoryItems = () => {
                   <img
                     src={item.img}
                     alt="phon"
-                    className="w-full h-full rounded-md"
+                    className="w-full h-full rounded-md object-cover"
                   />
                 </div>
                 <div>
                   <p className="text-3xl">
                     Name: {item.name}
                     {userState.isBuyer && (
-                    <label
-                      htmlFor="report-modal"
-                      onClick={() => handleReport(item)}
-                    >
-                      <MdReport
-                        className="inline-block ml-2 text-red-600 text-xl cursor-pointer"
-                        title="Report to admin"
-                      />
-                    </label>
-                  )}
+                      <label
+                        htmlFor="report-modal"
+                        onClick={() => handleReport(item)}
+                      >
+                        <MdReport
+                          className="inline-block ml-2 text-red-600 text-xl cursor-pointer"
+                          title="Report to admin"
+                        />
+                      </label>
+                    )}
                   </p>
 
                   <p className="text-xl">
                     Seller Name: {item.sellerName}{" "}
-                    <BsFillCheckCircleFill className="text-blue-700 w-[15px] h-[15px] m-0 inline" />
+                    {item.userVerified && (
+                      <BsFillCheckCircleFill className="text-blue-700 w-[15px] h-[15px] m-0 inline" />
+                    )}
                   </p>
                   <p>Location: {item.location}</p>
                   <p>

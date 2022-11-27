@@ -64,6 +64,7 @@ const SellerMyProduct = () => {
                           <img
                             src={product.img}
                             alt="phon"
+                            className='w-full object-cover'
                           />
                         </div>
                       </div>

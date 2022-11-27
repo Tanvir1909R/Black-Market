@@ -11,14 +11,18 @@ import { useNavigate } from "react-router-dom";
 const SellerDashboard = () => {
   const { user } = useContext(authProvider);
   const [categories, setCategories] = useState([]);
+  const [verify, setVerify] = useState(false);
   const navigate = useNavigate()
-  const [userState] = useUserState(user?.email);
   const { register, handleSubmit, reset } = useForm();
   const { baseUrl } = useContext(urlProvider);
   useEffect(() => {
     axios.get(`${baseUrl}/categories`).then((res) => {
       setCategories(res.data);
     });
+    axios.get(`${baseUrl}/isVerify?email=${user.email}`)
+    .then(res =>{
+      setVerify(res.data.isVerify)
+    })
   }, []);
 
   const handleForm = (data) => {
@@ -51,7 +55,8 @@ const SellerDashboard = () => {
             purchaseYear:data.purchaseYear,
             category:data.category,
             date: format(new Date(),"PP"),
-            email:user.email
+            email:user.email,
+            userVerified: verify
           }
           axios.post(`${baseUrl}/products`,productData)
           .then(res =>{

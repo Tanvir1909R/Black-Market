@@ -39,7 +39,7 @@ const BuyerDashboard = () => {
                   <div className="flex items-center">
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
-                        <img src={product.img} alt="phon" />
+                        <img src={product.img} alt="phon" className="w-full object-cover" />
                       </div>
                     </div>
                   </div>
