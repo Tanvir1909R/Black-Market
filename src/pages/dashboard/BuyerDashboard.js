@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { urlProvider } from "../../contexts/UrlContext";
 import { authProvider } from "../../contexts/UserContext";
 
@@ -49,7 +50,7 @@ const BuyerDashboard = () => {
                 </td>
                 <td>{product.price}</td>
                 <td>
-                  <button className="btn btn-sm">pay</button>
+                  <Link to={`/payment/${product.productID}`} className="btn btn-sm">pay</Link>
                 </td>
                 <td>
                   <button className="btn btn-sm">cancel</button>
