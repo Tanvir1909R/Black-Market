@@ -2,14 +2,20 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext } from 'react'
 import { urlProvider } from '../../contexts/UrlContext';
+import { authProvider } from '../../contexts/UserContext';
 
 const AllBuyer = () => {
     const { baseUrl } = useContext(urlProvider);
+    const {user} = useContext(authProvider)
 
     const { data: users=[], refetch } = useQuery({
       queryKey: ["usersBuyer"],
       queryFn: async () => {
-        const res = await fetch(`${baseUrl}/buyers`);
+        const res = await fetch(`${baseUrl}/buyers?email=${user.email}`,{
+          headers:{
+            authorization:`bearer ${localStorage.getItem('blackToken')}`
+          }
+        });
         const data = res.json();
         return data;
       },

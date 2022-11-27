@@ -7,17 +7,23 @@ import { urlProvider } from "../contexts/UrlContext";
 import {BsTelephoneForward} from 'react-icons/bs' 
 import {AiOutlineMail} from 'react-icons/ai'
 import Loader from "../Components/Loader";
+import { authProvider } from "../contexts/UserContext";
 
 const Home = () => {
   const { baseUrl } = useContext(urlProvider);
   const [categories, setCategories] = useState([]);
+  const {user} = useContext(authProvider)
   const [advertiseProducts, setAdvertiseProducts] = useState([]);
   const [advertiseLength, setAdvertiseLength] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     setIsLoading(true);
     axios.get(`${baseUrl}/categories`).then((res) => setCategories(res.data));
-    axios.get(`${baseUrl}/advertiseProducts`).then((res) => {
+    axios.get(`${baseUrl}/advertiseProducts`,{
+      headers:{
+        authorization:`bearer ${localStorage.getItem('blackToken')}`
+      }
+    }).then((res) => {
       setAdvertiseProducts(res.data);
       setAdvertiseLength(res.data.length);
       setIsLoading(false);

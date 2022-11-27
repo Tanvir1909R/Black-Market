@@ -4,10 +4,12 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { authProvider } from "../contexts/UserContext";
+import Loader from '../Components/Loader'
 import { urlProvider } from "../contexts/UrlContext";
 
 const Register = () => {
   const { register, handleSubmit } = useForm();
+  const [loading, setLoading] = useState(false);
   const { Register, updateUser } = useContext(authProvider);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -25,6 +27,7 @@ const Register = () => {
     };
     Register(email, password)
       .then((res) => {
+        setLoading(true)
         axios.post(`${baseUrl}/users`,user)
         .then(res =>{
           if(res.data.acknowledged){
@@ -33,6 +36,11 @@ const Register = () => {
             })
             .then(()=>{
               setError("");
+              axios.get(`${baseUrl}/jwt?email=${email}`)
+              .then(res =>{
+                localStorage.setItem('blackToken', res.data.token)
+                setLoading(false)
+              })
               toast.success("register successful");
               navigate("/");
             })
@@ -42,6 +50,9 @@ const Register = () => {
       })
       .catch((e) => setError(e.message));
   };
+  if(loading){
+    return <Loader/>
+  }
 
   return (
     <div className="Container mb-72">

@@ -9,12 +9,15 @@ const BuyerDashboard = () => {
   const { data: products = [] } = useQuery({
     queryKey: ["bookingProducts"],
     queryFn: async () => {
-      const res = await fetch(`${baseUrl}/bookingProducts/${user.email}`);
+      const res = await fetch(`${baseUrl}/bookingProducts/${user.email}`,{
+        headers:{
+          authorization:`bearer ${localStorage.getItem('blackToken')}`
+        }
+      });
       const data = res.json();
       return data;
     },
   });
-  console.log(products);
 
   return (
     <div className="overflow-x-auto w-full">

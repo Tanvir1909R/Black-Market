@@ -10,7 +10,7 @@ import { urlProvider } from "../contexts/UrlContext";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
-  const { Login, ProviderLogin } = useContext(authProvider);
+  const { Login, ProviderLogin,} = useContext(authProvider);
   const googleProvider = new GoogleAuthProvider()
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -26,6 +26,10 @@ const Login = () => {
       .then((res) => {
         setError("");
         toast.success("login successful");
+        axios.get(`${baseUrl}/jwt?email=${email}`)
+        .then(res =>{
+          localStorage.setItem('blackToken', res.data.token)
+        })
         navigate(from, { replace: true });
       })
       .catch((e) => setError(e.message));
@@ -34,12 +38,18 @@ const Login = () => {
   const handleGoogleLogin = ()=>{
     ProviderLogin(googleProvider)
     .then(res =>{
+      const email = res.user.email
       axios.post(`${baseUrl}/users`,{
         name:res.user.displayName,
         email:res.user.email,
         type:"Buyer"
       })
-      .then(res =>{})
+      .then(res =>{
+        axios.get(`${baseUrl}/jwt?email=${email}`)
+        .then(res =>{
+          localStorage.setItem('blackToken', res.data.token)
+        })
+      })
     })
   }
 
