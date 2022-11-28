@@ -42,7 +42,7 @@ const CategoryItems = () => {
       <h1 className="text-3xl text-center mb-20">Find your phon: {name}</h1>
       <div className="productsWrapper">
         <div>
-          <div className="sticky top-5">
+          <div className="sticky top-5 p-5">
             <h1 className="text-2xl mb-4">Search Phone</h1>
             <input
               type="text"
