@@ -4,7 +4,7 @@ export const urlProvider = createContext()
 
 const UrlContext = ({children}) => {
     const url = {
-        baseUrl:'http://localhost:7000',
+        baseUrl:'https://resale-server-beta.vercel.app',
     }
   return (
     <urlProvider.Provider value={url}>{children}</urlProvider.Provider>
