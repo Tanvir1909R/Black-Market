@@ -2,6 +2,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { urlProvider } from "../../contexts/UrlContext";
 import { authProvider } from "../../contexts/UserContext";
 
@@ -13,7 +14,8 @@ const CheckoutForm = ({product}) => {
   const {baseUrl} = useContext(urlProvider)
   const stripe = useStripe();
   const elements = useElements();
-  const {resalePrice, name,_id, email } = product
+  const {resalePrice, name, _id } = product
+  const navigate = useNavigate()
 
 
   useEffect(()=>{
@@ -67,8 +69,27 @@ const CheckoutForm = ({product}) => {
         return
       }
       if(paymentIntent.status === 'succeeded'){
-        toast.success('Payment successful')
-        setProcess(false)
+        const paymentInfo = {
+          transactionID: paymentIntent.id,
+          productID:_id,
+          email:user.email
+        }
+        axios.post(`${baseUrl}/confirmPayment`,paymentInfo )
+        .then(res =>{
+          axios.put(`${baseUrl}/updateBooking/${_id}`)
+          .then(res =>{
+            axios.delete(`${baseUrl}/deleteProduct/${_id}`)
+            .then(res =>{
+              axios.delete(`${baseUrl}/deleteAdvertiseProduct/${_id}`)
+              .then(res =>{
+                toast.success('Payment successful')
+                setProcess(false)
+                navigate('/dashboard/myOrder')
+              })
+            })
+          })
+
+        })
       }
   };
   return (

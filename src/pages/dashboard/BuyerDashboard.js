@@ -12,23 +12,24 @@ const BuyerDashboard = () => {
   const { data: products = [], refetch } = useQuery({
     queryKey: ["bookingProducts"],
     queryFn: async () => {
-      const res = await fetch(`${baseUrl}/bookingProducts/${user.email}`,{
-        headers:{
-          authorization:`bearer ${localStorage.getItem('blackToken')}`
-        }
+      const res = await fetch(`${baseUrl}/bookingProducts/${user.email}`, {
+        headers: {
+          authorization: `bearer ${localStorage.getItem("blackToken")}`,
+        },
       });
       const data = res.json();
       return data;
     },
   });
 
-  const handleCancel = (product)=>{
-    axios.delete(`${baseUrl}/deleteBookingProduct/${product._id}`)
-    .then(res=>{
-      toast.success('canceled')
-      refetch()
-    })
-  }
+  const handleCancel = (product) => {
+    axios
+      .delete(`${baseUrl}/deleteBookingProduct/${product._id}`)
+      .then((res) => {
+        toast.success("canceled");
+        refetch();
+      });
+  };
 
   return (
     <div className="overflow-x-auto w-full">
@@ -50,7 +51,11 @@ const BuyerDashboard = () => {
                   <div className="flex items-center">
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
-                        <img src={product.img} alt="phon" className="w-full object-cover" />
+                        <img
+                          src={product.img}
+                          alt="phon"
+                          className="w-full object-cover"
+                        />
                       </div>
                     </div>
                   </div>
@@ -60,10 +65,24 @@ const BuyerDashboard = () => {
                 </td>
                 <td>{product.price}</td>
                 <td>
-                  <Link to={`/payment/${product.productID}`} className="btn btn-sm">pay</Link>
+                  {product.isPaid ? (
+                    "paid"
+                  ) : (
+                    <Link
+                      to={`/payment/${product.productID}`}
+                      className="btn btn-sm"
+                    >
+                      pay
+                    </Link>
+                  )}
                 </td>
                 <td>
-                  <button className="btn btn-sm" onClick={()=>handleCancel(product)}>cancel</button>
+                  <button
+                    className="btn btn-sm"
+                    onClick={() => handleCancel(product)}
+                  >
+                    cancel
+                  </button>
                 </td>
               </tr>
             );
