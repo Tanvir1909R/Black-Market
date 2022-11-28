@@ -19,6 +19,9 @@ import AllBuyer from './pages/dashboard/AllBuyer'
 import AllSeller from "./pages/dashboard/AllSeller";
 import ReportedItem from "./pages/dashboard/ReportedItem";
 import Payment from "./pages/dashboard/Payment";
+import SellerRoute from './routes/SellerRoute'
+import AdminRoute from "./routes/AdminRoute";
+import BuyerRoute from "./routes/BuyerRoute";
 
 const App = () => {
   return (
@@ -48,13 +51,13 @@ const App = () => {
           >
             //---------------dashboard child
             //BuyerDashboard
-              <Route path="/dashboard/myOrder" element={ <BuyerDashboard/> }/>
+              <Route path="/dashboard/myOrder" element={ <BuyerRoute><BuyerDashboard/></BuyerRoute> }/>
               //SellerDashboard
-              <Route path="/dashboard/addProduct" element={ <SellerAddProduct/> }/>
+              <Route path="/dashboard/addProduct" element={ <SellerRoute><SellerAddProduct/></SellerRoute> }/>
               <Route path="/dashboard/myProducts" element={ <SellerMyProduct/> }/>
-              <Route path="/dashboard/allBuyer" element={<AllBuyer />}/>
-              <Route path="/dashboard/allSeller" element={ <AllSeller /> }/>
-              <Route path="/dashboard/reportedItem" element={ <ReportedItem /> }/>
+              <Route path="/dashboard/allBuyer" element={ <AdminRoute><AllBuyer /></AdminRoute> }/>
+              <Route path="/dashboard/allSeller" element={ <AdminRoute><AllSeller /></AdminRoute> }/>
+              <Route path="/dashboard/reportedItem" element={ <AdminRoute><ReportedItem /></AdminRoute> }/>
           </Route>
           <Route path="/payment/:id" element={ <Payment/> }/>
           <Route path="/*" element={ <Error404/> }/>
