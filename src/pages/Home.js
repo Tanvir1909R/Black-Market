@@ -51,7 +51,7 @@ const Home = () => {
                 nostrum distinctio consequatur quas debitis repellat numquam
                 cupiditate aliquam libero.
               </p>
-              <Link to="/categories" className="btn">
+              <Link to="/" className="btn">
                 See Products
               </Link>
             </div>
@@ -79,7 +79,7 @@ const Home = () => {
           </div>
         </div>
         {/* //advertise */}
-        {advertiseLength && <Advertise advertiseProducts={advertiseProducts} />}
+        {advertiseLength ? <Advertise advertiseProducts={advertiseProducts} /> : <></>}
       </div>
       {/* question section */}
       <div className="bg-slate-200">
