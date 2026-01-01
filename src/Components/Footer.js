@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="p-10 bg-slate-900 text-white">
       <div className="Container footer">
         <div>
-        <h1 className="font-bold text-4xl">Black Market</h1>
+        <h1 className="font-bold text-4xl">Phone Market</h1>
         <p>
           ACME Industries Ltd.
           <br />

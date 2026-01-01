@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "black-market-fa698",
     "public": "build",
     "ignore": [
       "firebase.json",

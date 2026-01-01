@@ -1,29 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Loader from "../Components/Loader";
 import { urlProvider } from "../contexts/UrlContext";
+import { authProvider } from "../contexts/UserContext";
 import { BsFillCheckCircleFill, BsSearch } from "react-icons/bs";
 import { FaMapMarkerAlt, FaCalendarAlt } from "react-icons/fa";
-import BookingModal from "../Components/BookingModal";
-import useUserState from "../hooks/useUserState";
-import { authProvider } from "../contexts/UserContext";
 import { MdReport } from "react-icons/md";
+import BookingModal from "../Components/BookingModal";
 import ReportModal from "../Components/ReportModal";
+import useUserState from "../hooks/useUserState";
 
-const CategoryItems = () => {
+const Products = () => {
   const { user } = useContext(authProvider);
   const { baseUrl } = useContext(urlProvider);
-  const { name } = useParams();
   const [userState] = useUserState(user?.email);
   const [reportedProduct, setReportedProduct] = useState(null);
   const [itemBook, setItemBook] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const { data: categoryItems = [], isLoading } = useQuery({
-    queryKey: ["categoryItems", name],
+  const { data: products = [], isLoading } = useQuery({
+    queryKey: ["allProducts"],
     queryFn: async () => {
-      const res = await fetch(`${baseUrl}/products/${name}`);
+      const res = await fetch(`${baseUrl}/products`);
       const data = res.json();
       return data;
     },
@@ -37,10 +37,18 @@ const CategoryItems = () => {
     setReportedProduct(item);
   };
 
-  // Filter products by search
-  const filteredProducts = categoryItems.filter((product) =>
-    product.name?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Get unique categories
+  const categories = ["All", ...new Set(products.map((p) => p.category))];
+
+  // Filter products
+  const filteredProducts = products.filter((product) => {
+    const matchesSearch = product.name
+      ?.toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      selectedCategory === "All" || product.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   if (isLoading) {
     return <Loader />;
@@ -51,13 +59,13 @@ const CategoryItems = () => {
       <div className="Container">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-800 mb-3">{name} Phones</h1>
+          <h1 className="text-4xl font-bold text-gray-800 mb-3">All Phones</h1>
           <p className="text-gray-500 text-lg">
-            Browse {categoryItems.length} phones in {name} category
+            Browse our collection of {products.length} phones
           </p>
         </div>
 
-        {/* Search Section */}
+        {/* Filters Section */}
         <div className="bg-white rounded-2xl shadow-md p-6 mb-10">
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
             {/* Search */}
@@ -72,13 +80,22 @@ const CategoryItems = () => {
               />
             </div>
 
-            {/* Back to Products */}
-            <Link
-              to="/products"
-              className="px-6 py-3 bg-gray-100 text-gray-600 rounded-xl font-medium hover:bg-gray-200 transition-colors"
-            >
-              ← All Products
-            </Link>
+            {/* Category Filter */}
+            <div className="flex flex-wrap gap-2">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                    selectedCategory === category
+                      ? "bg-orange-500 text-white"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -197,4 +214,4 @@ const CategoryItems = () => {
   );
 };
 
-export default CategoryItems;
+export default Products;

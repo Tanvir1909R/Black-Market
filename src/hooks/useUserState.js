@@ -19,9 +19,9 @@ const useUserState = (email) => {
                 setUserState(res.data);
                 setStateLoading(false)
             }else{
-                toast.error(res.data.message,{
-                    duration:5000,
-                })
+                // toast.error(res.data.message,{
+                //     duration:1000,
+                // })
                 deleteAccount()
                 .then(()=>{
                     navigate('/login')

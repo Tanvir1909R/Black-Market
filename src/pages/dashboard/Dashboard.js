@@ -32,11 +32,23 @@ const Dashboard = () => {
                 <li>
                   <Link to="/dashboard/myProducts">My Products</Link>
                 </li>
+                <li>
+                  <Link to="/dashboard/paymentMethod">Add Payment Method</Link>
+                </li>
+                <li>
+                  <Link to="/dashboard/myPaymentMethods">My Payment Methods</Link>
+                </li>
+                <li>
+                  <Link to="/dashboard/pendingPayments">Pending Payments</Link>
+                </li>
               </>
             )}
             {
               userState.isAdmin &&
               <>
+                <li>
+                  <Link to="/dashboard/overview">Overview</Link>
+                </li>
                 <li>
                   <Link to="/dashboard/allBuyer">All Buyer</Link>
                 </li>
